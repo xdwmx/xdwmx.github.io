@@ -12,28 +12,6 @@
       </tags>
   </entry>
   <entry>
-    <title>image</title>
-    <url>/2021/11/24/image/</url>
-    <content><![CDATA[<p><img src="/2021/11/24/image/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%B7%AF%E7%BA%BF.png"></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>java</title>
-    <url>/2021/11/24/java/</url>
-    <content><![CDATA[<p>大数据处理的第一步是数据的收集。现在的中大型项目通常采用微服务架构进行分布式部署，所以数据的采集需要在多台服务器上进行，且采集过程不能影响正常业务的开展。基于这种需求，就衍生了多种日志收集工具，如 Flume 、Logstash、Kibana 等，它们都能通过简单的配置完成复杂的数据收集和数据聚合。</p>
-<span id="more"></span>
-
-<h5 id="1-2-数据存储"><a href="#1-2-数据存储" class="headerlink" title="1.2 数据存储"></a>1.2 数据存储</h5><p>收集到数据后，下一个问题就是：数据该如何进行存储？通常大家最为熟知是 MySQL、Oracle 等传统的关系型数据库，它们的优点是能够快速存储结构化的数据，并支持随机访问。但大数据的数据结构通常是半结构化（如日志数据）、甚至是非结构化的（如视频、音频数据），为了解决海量半结构化和非结构化数据的存储，衍生了 Hadoop HDFS 、KFS、GFS 等分布式文件系统，它们都能够支持结构化、半结构和非结构化数据的存储，并可以通过增加机器进行横向扩展。</p>
-<p>分布式文件系统完美地解决了海量数据存储的问题，但是一个优秀的数据存储系统需要同时考虑数据存储和访问两方面的问题，比如你希望能够对数据进行随机访问，这是传统的关系型数据库所擅长的，但却不是分布式文    </p>
-]]></content>
-      <categories>
-        <category>java生态</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hello Hexo</title>
     <url>/2021/11/22/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -59,7 +37,40 @@
       </tags>
   </entry>
   <entry>
-    <title>两数之和</title>
+    <title>image</title>
+    <url>/2021/11/24/image/</url>
+    <content><![CDATA[<p><img src="/2021/11/24/image/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E8%B7%AF%E7%BA%BF.png"></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>java</title>
+    <url>/2021/11/24/java/</url>
+    <content><![CDATA[<p>大数据处理的第一步是数据的收集。现在的中大型项目通常采用微服务架构进行分布式部署，所以数据的采集需要在多台服务器上进行，且采集过程不能影响正常业务的开展。基于这种需求，就衍生了多种日志收集工具，如 Flume 、Logstash、Kibana 等，它们都能通过简单的配置完成复杂的数据收集和数据聚合。</p>
+<span id="more"></span>
+
+<h5 id="1-2-数据存储"><a href="#1-2-数据存储" class="headerlink" title="1.2 数据存储"></a>1.2 数据存储</h5><p>收集到数据后，下一个问题就是：数据该如何进行存储？通常大家最为熟知是 MySQL、Oracle 等传统的关系型数据库，它们的优点是能够快速存储结构化的数据，并支持随机访问。但大数据的数据结构通常是半结构化（如日志数据）、甚至是非结构化的（如视频、音频数据），为了解决海量半结构化和非结构化数据的存储，衍生了 Hadoop HDFS 、KFS、GFS 等分布式文件系统，它们都能够支持结构化、半结构和非结构化数据的存储，并可以通过增加机器进行横向扩展。</p>
+<p>分布式文件系统完美地解决了海量数据存储的问题，但是一个优秀的数据存储系统需要同时考虑数据存储和访问两方面的问题，比如你希望能够对数据进行随机访问，这是传统的关系型数据库所擅长的，但却不是分布式文    </p>
+]]></content>
+      <categories>
+        <category>java生态</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>spark</title>
+    <url>/2021/11/24/spark/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>大数据相关架构</category>
+      </categories>
+      <tags>
+        <tag>spark</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>leetcode01——两数之和</title>
     <url>/2021/11/27/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
     <content><![CDATA[<h4 id="1-两数之和"><a href="#1-两数之和" class="headerlink" title="1. 两数之和"></a>1. 两数之和</h4><p>给定一个整数数组 <code>nums</code> 和一个整数目标值 <code>target</code>，请你在该数组中找出 <strong>和为目标值</strong> <em><code>target</code></em> 的那 <strong>两个</strong> 整数，并返回它们的数组下标。</p>
 <p>你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。</p>
@@ -92,15 +103,12 @@
       </tags>
   </entry>
   <entry>
-    <title>spark</title>
-    <url>/2021/11/24/spark/</url>
+    <title>杭州</title>
+    <url>/2021/11/25/%E4%BA%91%E6%A0%96%E7%AB%B9%E5%BE%84/</url>
     <content><![CDATA[]]></content>
       <categories>
-        <category>大数据相关架构</category>
+        <category>在杭州</category>
       </categories>
-      <tags>
-        <tag>spark</tag>
-      </tags>
   </entry>
   <entry>
     <title>大数据路线</title>
@@ -160,14 +168,6 @@
   <entry>
     <title>宜家-杭州</title>
     <url>/2021/11/25/%E5%AE%9C%E5%AE%B6-%E6%9D%AD%E5%B7%9E/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>在杭州</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>杭州</title>
-    <url>/2021/11/25/%E4%BA%91%E6%A0%96%E7%AB%B9%E5%BE%84/</url>
     <content><![CDATA[]]></content>
       <categories>
         <category>在杭州</category>
