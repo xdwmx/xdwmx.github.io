@@ -6,11 +6,6 @@
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>Hadoop001——yarn作业提交流程</title>
-    <url>/2021/12/12/Hadoop002%E2%80%94%E2%80%94yarn%E4%BD%9C%E4%B8%9A%E6%8F%90%E4%BA%A4%E6%B5%81%E7%A8%8B/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>Hadoop003——HDFS概述</title>
     <url>/2021/12/12/Hadoop003%E2%80%94%E2%80%94HDFS%E6%A6%82%E8%BF%B0/</url>
     <content><![CDATA[]]></content>
@@ -90,8 +85,8 @@
       </tags>
   </entry>
   <entry>
-    <title>Olap003——hue概述</title>
-    <url>/2021/12/12/olap003%E2%80%94%E2%80%94hue%E6%A6%82%E8%BF%B0/</url>
+    <title>Hadoop001——yarn作业提交流程</title>
+    <url>/2021/12/12/Hadoop002%E2%80%94%E2%80%94yarn%E4%BD%9C%E4%B8%9A%E6%8F%90%E4%BA%A4%E6%B5%81%E7%A8%8B/</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
@@ -152,8 +147,8 @@
       </tags>
   </entry>
   <entry>
-    <title>Presto概述</title>
-    <url>/2021/12/12/presto001%E2%80%94%E2%80%94%E6%A6%82%E8%BF%B0/</url>
+    <title>Clickhouse架构及入门</title>
+    <url>/2021/12/12/clickhouse001%E2%80%94%E2%80%94%E6%9E%B6%E6%9E%84%E5%8F%8A%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
@@ -162,8 +157,23 @@
     <content><![CDATA[]]></content>
   </entry>
   <entry>
+    <title>Olap003——hue概述</title>
+    <url>/2021/12/12/olap003%E2%80%94%E2%80%94hue%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>Presto概述</title>
+    <url>/2021/12/12/presto001%E2%80%94%E2%80%94%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>Spark001——运行结构&amp;作业执行流程</title>
     <url>/2021/12/12/spark001%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%84-%E4%BD%9C%E4%B8%9A%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>spark002——RDD算子入门</title>
+    <url>/2021/12/12/spark002%E2%80%94%E2%80%94RDD%E7%AE%97%E5%AD%90%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
@@ -178,48 +188,75 @@
       </tags>
   </entry>
   <entry>
-    <title>spark002——RDD算子入门</title>
-    <url>/2021/12/12/spark002%E2%80%94%E2%80%94RDD%E7%AE%97%E5%AD%90%E5%85%A5%E9%97%A8/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>在杭州001——云栖竹径</title>
     <url>/2021/12/12/%E5%9C%A8%E6%9D%AD%E5%B7%9E001%E2%80%94%E2%80%94%E4%BA%91%E6%A0%96%E7%AB%B9%E5%BE%84/</url>
     <content><![CDATA[]]></content>
+      <categories>
+        <category>杭州记录</category>
+      </categories>
+      <tags>
+        <tag>杭州旅游</tag>
+      </tags>
   </entry>
   <entry>
     <title>在杭州003——湘湖</title>
     <url>/2021/12/12/%E5%9C%A8%E6%9D%AD%E5%B7%9E003%E2%80%94%E2%80%94%E6%B9%98%E6%B9%96/</url>
     <content><![CDATA[]]></content>
+      <categories>
+        <category>杭州记录</category>
+      </categories>
+      <tags>
+        <tag>杭州旅游</tag>
+      </tags>
   </entry>
   <entry>
     <title>在杭州004——八卦田</title>
     <url>/2021/12/12/%E5%9C%A8%E6%9D%AD%E5%B7%9E004%E2%80%94%E2%80%94%E5%85%AB%E5%8D%A6%E7%94%B0/</url>
     <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>Clickhouse架构及入门</title>
-    <url>/2021/12/12/clickhouse001%E2%80%94%E2%80%94%E6%9E%B6%E6%9E%84%E5%8F%8A%E5%85%A5%E9%97%A8/</url>
-    <content><![CDATA[]]></content>
+      <categories>
+        <category>杭州记录</category>
+      </categories>
+      <tags>
+        <tag>杭州旅游</tag>
+      </tags>
   </entry>
   <entry>
     <title>在杭州005——宝石山</title>
     <url>/2021/12/12/%E5%9C%A8%E6%9D%AD%E5%B7%9E005%E2%80%94%E2%80%94%E5%AE%9D%E7%9F%B3%E5%B1%B1/</url>
     <content><![CDATA[]]></content>
+      <categories>
+        <category>杭州记录</category>
+      </categories>
+      <tags>
+        <tag>杭州旅游</tag>
+      </tags>
   </entry>
   <entry>
     <title>在杭州002——宜家</title>
     <url>/2021/12/12/%E5%9C%A8%E6%9D%AD%E5%B7%9E002%E2%80%94%E2%80%94%E5%AE%9C%E5%AE%B6/</url>
     <content><![CDATA[]]></content>
+      <categories>
+        <category>杭州记录</category>
+      </categories>
+      <tags>
+        <tag>杭州旅游</tag>
+      </tags>
   </entry>
   <entry>
     <title>在杭州006——横店影视城</title>
     <url>/2021/12/12/%E5%9C%A8%E6%9D%AD%E5%B7%9E006%E2%80%94%E2%80%94%E6%A8%AA%E5%BA%97%E5%BD%B1%E8%A7%86%E5%9F%8E/</url>
     <content><![CDATA[]]></content>
+      <categories>
+        <category>杭州记录</category>
+      </categories>
+      <tags>
+        <tag>杭州旅游</tag>
+        <tag>金华</tag>
+      </tags>
   </entry>
   <entry>
-    <title>数仓002——数仓知识入门</title>
-    <url>/2021/12/12/%E6%95%B0%E4%BB%93002%E2%80%94%E2%80%94%E6%95%B0%E4%BB%93%E7%9F%A5%E8%AF%86%E5%85%A5%E9%97%A8/</url>
+    <title>数仓001——数据集市概述</title>
+    <url>/2021/12/12/%E6%95%B0%E4%BB%93001%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E9%9B%86%E5%B8%82%E6%A6%82%E8%BF%B0/</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
@@ -228,13 +265,13 @@
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>数仓003——元数据</title>
-    <url>/2021/12/12/%E6%95%B0%E4%BB%93003%E2%80%94%E2%80%94%E5%85%83%E6%95%B0%E6%8D%AE/</url>
+    <title>数仓002——数仓知识入门</title>
+    <url>/2021/12/12/%E6%95%B0%E4%BB%93002%E2%80%94%E2%80%94%E6%95%B0%E4%BB%93%E7%9F%A5%E8%AF%86%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>数仓001——数据集市概述</title>
-    <url>/2021/12/12/%E6%95%B0%E4%BB%93001%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E9%9B%86%E5%B8%82%E6%A6%82%E8%BF%B0/</url>
+    <title>数仓003——元数据</title>
+    <url>/2021/12/12/%E6%95%B0%E4%BB%93003%E2%80%94%E2%80%94%E5%85%83%E6%95%B0%E6%8D%AE/</url>
     <content><![CDATA[]]></content>
   </entry>
 </search>
