@@ -9,6 +9,17 @@
       </categories>
   </entry>
   <entry>
+    <title>Hive架构入门</title>
+    <url>/2021/12/12/Hive001%E2%80%94%E2%80%94%E6%9E%B6%E6%9E%84%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>数仓</category>
+      </categories>
+      <tags>
+        <tag>hive</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hadoop003——HDFS概述</title>
     <url>/2021/12/12/Hadoop003%E2%80%94%E2%80%94HDFS%E6%A6%82%E8%BF%B0/</url>
     <content><![CDATA[]]></content>
@@ -75,6 +86,8 @@
 <li><strong>Druid 定位在实时分析类场景</strong>，但由于其 SQL 支持程度相对较低、无法精确查询等问题，<strong>一般用在日志、监控分析等场景</strong>。</li>
 </ul>
 <p>目前大数据领域 OLAP 引擎很多，但后期随着社区和生态的不断发展壮大，引擎功能应该会不断地完善、补齐、优化，最终朝着一站式 OLAP 引擎的方向发展，甚至是多模数据库引擎的方向去发展。</p>
+<img src="/2021/12/12/OLAP001%E2%80%94%E2%80%94%E5%A4%A7%E6%95%B0%E6%8D%AEOLAP%E5%BC%95%E6%93%8E%E5%AF%B9%E6%AF%94%E5%88%86%E6%9E%90/WechatIMG125.jpeg" alt="WechatIMG125" style="zoom:67%;">
+
 <blockquote>
 <p>参考文章：</p>
 <p><a href="https://time.geekbang.org/dailylesson/detail/100075735">https://time.geekbang.org/dailylesson/detail/100075735</a></p>
@@ -90,17 +103,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hive架构入门</title>
-    <url>/2021/12/12/Hive001%E2%80%94%E2%80%94%E6%9E%B6%E6%9E%84%E5%85%A5%E9%97%A8/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>数仓</category>
-      </categories>
-      <tags>
-        <tag>hive</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Clickhouse架构及入门</title>
     <url>/2021/12/12/clickhouse001%E2%80%94%E2%80%94%E6%9E%B6%E6%9E%84%E5%8F%8A%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[]]></content>
@@ -109,15 +111,12 @@
       </categories>
   </entry>
   <entry>
-    <title>Spark001——运行结构&amp;作业执行流程</title>
-    <url>/2021/12/12/spark001%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%84-%E4%BD%9C%E4%B8%9A%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/</url>
+    <title>Olap002——superset概述</title>
+    <url>/2021/12/12/olap002%E2%80%94%E2%80%94superset%E6%A6%82%E8%BF%B0/</url>
     <content><![CDATA[]]></content>
       <categories>
-        <category>大数据</category>
+        <category>OLAP</category>
       </categories>
-      <tags>
-        <tag>spark</tag>
-      </tags>
   </entry>
   <entry>
     <title>Olap003——hue概述</title>
@@ -128,6 +127,28 @@
       </categories>
       <tags>
         <tag>hue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Presto概述</title>
+    <url>/2021/12/12/presto001%E2%80%94%E2%80%94%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>presto</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spark001——运行结构&amp;作业执行流程</title>
+    <url>/2021/12/12/spark001%E2%80%94%E2%80%94%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%84-%E4%BD%9C%E4%B8%9A%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>大数据</category>
+      </categories>
+      <tags>
+        <tag>spark</tag>
       </tags>
   </entry>
   <entry>
@@ -143,34 +164,12 @@
       </tags>
   </entry>
   <entry>
-    <title>Presto概述</title>
-    <url>/2021/12/12/presto001%E2%80%94%E2%80%94%E6%A6%82%E8%BF%B0/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>大数据</category>
-      </categories>
-      <tags>
-        <tag>presto</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>半小时漫画三国演义</title>
     <url>/2021/11/29/%E5%8D%8A%E5%B0%8F%E6%97%B6%E6%BC%AB%E7%94%BB%E4%B8%89%E5%9B%BD%E6%BC%94%E4%B9%89/</url>
     <content><![CDATA[]]></content>
       <categories>
         <category>随笔</category>
       </categories>
-  </entry>
-  <entry>
-    <title>在杭州001——云栖竹径</title>
-    <url>/2021/12/12/%E5%9C%A8%E6%9D%AD%E5%B7%9E001%E2%80%94%E2%80%94%E4%BA%91%E6%A0%96%E7%AB%B9%E5%BE%84/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>杭州记录</category>
-      </categories>
-      <tags>
-        <tag>杭州旅游</tag>
-      </tags>
   </entry>
   <entry>
     <title>在杭州003——湘湖</title>
@@ -184,27 +183,16 @@
       </tags>
   </entry>
   <entry>
+    <title>数仓001——数据集市概述</title>
+    <url>/2021/12/12/%E6%95%B0%E4%BB%93001%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E9%9B%86%E5%B8%82%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>数仓</category>
+      </categories>
+  </entry>
+  <entry>
     <title>在杭州002——宜家</title>
     <url>/2021/12/12/%E5%9C%A8%E6%9D%AD%E5%B7%9E002%E2%80%94%E2%80%94%E5%AE%9C%E5%AE%B6/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>杭州记录</category>
-      </categories>
-      <tags>
-        <tag>杭州旅游</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Olap002——superset概述</title>
-    <url>/2021/12/12/olap002%E2%80%94%E2%80%94superset%E6%A6%82%E8%BF%B0/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>OLAP</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>在杭州005——宝石山</title>
-    <url>/2021/12/12/%E5%9C%A8%E6%9D%AD%E5%B7%9E005%E2%80%94%E2%80%94%E5%AE%9D%E7%9F%B3%E5%B1%B1/</url>
     <content><![CDATA[]]></content>
       <categories>
         <category>杭州记录</category>
@@ -226,8 +214,46 @@
       </tags>
   </entry>
   <entry>
-    <title>数仓001——数据集市概述</title>
-    <url>/2021/12/12/%E6%95%B0%E4%BB%93001%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E9%9B%86%E5%B8%82%E6%A6%82%E8%BF%B0/</url>
+    <title>数仓002——数仓知识入门</title>
+    <url>/2021/12/12/%E6%95%B0%E4%BB%93002%E2%80%94%E2%80%94%E6%95%B0%E4%BB%93%E7%9F%A5%E8%AF%86%E5%85%A5%E9%97%A8/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>数仓</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>在杭州005——宝石山</title>
+    <url>/2021/12/12/%E5%9C%A8%E6%9D%AD%E5%B7%9E005%E2%80%94%E2%80%94%E5%AE%9D%E7%9F%B3%E5%B1%B1/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>杭州记录</category>
+      </categories>
+      <tags>
+        <tag>杭州旅游</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在杭州001——云栖竹径</title>
+    <url>/2021/12/12/%E5%9C%A8%E6%9D%AD%E5%B7%9E001%E2%80%94%E2%80%94%E4%BA%91%E6%A0%96%E7%AB%B9%E5%BE%84/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>杭州记录</category>
+      </categories>
+      <tags>
+        <tag>杭州旅游</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数仓004——数据质量</title>
+    <url>/2021/12/12/%E6%95%B0%E4%BB%93004%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>数仓</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>数仓003——元数据</title>
+    <url>/2021/12/12/%E6%95%B0%E4%BB%93003%E2%80%94%E2%80%94%E5%85%83%E6%95%B0%E6%8D%AE/</url>
     <content><![CDATA[]]></content>
       <categories>
         <category>数仓</category>
@@ -243,29 +269,5 @@
       <tags>
         <tag>杭州旅游</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>数仓002——数仓知识入门</title>
-    <url>/2021/12/12/%E6%95%B0%E4%BB%93002%E2%80%94%E2%80%94%E6%95%B0%E4%BB%93%E7%9F%A5%E8%AF%86%E5%85%A5%E9%97%A8/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>数仓</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>数仓003——元数据</title>
-    <url>/2021/12/12/%E6%95%B0%E4%BB%93003%E2%80%94%E2%80%94%E5%85%83%E6%95%B0%E6%8D%AE/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>数仓</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>数仓004——数据质量</title>
-    <url>/2021/12/12/%E6%95%B0%E4%BB%93004%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>数仓</category>
-      </categories>
   </entry>
 </search>
