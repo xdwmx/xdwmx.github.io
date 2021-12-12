@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"xdwmx.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","width":250,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="可以大致将 OLAP 分为 ROLAP 和 MOLAP 两类。  ROLAP：即关系型 OLAP，通过对原始明细数据实时聚合计算的方式来进行数据查询。比如 Presto、ClickHouse 等 OLAP 引擎。  MOLAP： 即多维型 OLAP，通过摄入数据时对原始明细数据进行预聚合加工处理，然后通过预聚合数据来进行数据查询。比如 Kylin、Druid 等 OLAP 引擎。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Olap001——olap引擎选型对比">
+<meta property="og:url" content="https://xdwmx.github.io/2021/12/12/olap001%E2%80%94%E2%80%94olap%E5%BC%95%E6%93%8E%E9%80%89%E5%9E%8B%E5%AF%B9%E6%AF%94/index.html">
+<meta property="og:site_name" content="橘子">
+<meta property="og:description" content="可以大致将 OLAP 分为 ROLAP 和 MOLAP 两类。  ROLAP：即关系型 OLAP，通过对原始明细数据实时聚合计算的方式来进行数据查询。比如 Presto、ClickHouse 等 OLAP 引擎。  MOLAP： 即多维型 OLAP，通过摄入数据时对原始明细数据进行预聚合加工处理，然后通过预聚合数据来进行数据查询。比如 Kylin、Druid 等 OLAP 引擎。">
+<meta property="og:locale">
+<meta property="og:image" content="https://xdwmx.github.io/2021/12/12/olap001%E2%80%94%E2%80%94olap%E5%BC%95%E6%93%8E%E9%80%89%E5%9E%8B%E5%AF%B9%E6%AF%94/1.png">
+<meta property="og:image" content="https://xdwmx.github.io/2021/12/12/olap001%E2%80%94%E2%80%94olap%E5%BC%95%E6%93%8E%E9%80%89%E5%9E%8B%E5%AF%B9%E6%AF%94/2.webp">
+<meta property="og:image" content="https://xdwmx.github.io/2021/12/12/olap001%E2%80%94%E2%80%94olap%E5%BC%95%E6%93%8E%E9%80%89%E5%9E%8B%E5%AF%B9%E6%AF%94/3.webp">
+<meta property="og:image" content="https://xdwmx.github.io/2021/12/12/olap001%E2%80%94%E2%80%94olap%E5%BC%95%E6%93%8E%E9%80%89%E5%9E%8B%E5%AF%B9%E6%AF%94/4.webp">
+<meta property="og:image" content="https://xdwmx.github.io/2021/12/12/olap001%E2%80%94%E2%80%94olap%E5%BC%95%E6%93%8E%E9%80%89%E5%9E%8B%E5%AF%B9%E6%AF%94/5.webp">
+<meta property="article:published_time" content="2021-12-12T07:17:26.000Z">
+<meta property="article:modified_time" content="2021-12-12T08:20:14.940Z">
+<meta property="article:author" content="橘子">
+<meta property="article:tag" content="大数据">
+<meta property="article:tag" content="clickhouse">
+<meta property="article:tag" content="Olap">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xdwmx.github.io/2021/12/12/olap001%E2%80%94%E2%80%94olap%E5%BC%95%E6%93%8E%E9%80%89%E5%9E%8B%E5%AF%B9%E6%AF%94/1.png">
+
+<link rel="canonical" href="https://xdwmx.github.io/2021/12/12/olap001%E2%80%94%E2%80%94olap%E5%BC%95%E6%93%8E%E9%80%89%E5%9E%8B%E5%AF%B9%E6%AF%94/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Olap001——olap引擎选型对比 | 橘子</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">橘子</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://xdwmx.github.io/2021/12/12/olap001%E2%80%94%E2%80%94olap%E5%BC%95%E6%93%8E%E9%80%89%E5%9E%8B%E5%AF%B9%E6%AF%94/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="MMXX">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="橘子">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Olap001——olap引擎选型对比
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建于：2021-12-12 15:17:26 / 更新于：16:20:14" itemprop="dateCreated datePublished" datetime="2021-12-12T15:17:26+08:00">2021-12-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/olap/" itemprop="url" rel="index"><span itemprop="name">olap</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>可以大致将 OLAP 分为 ROLAP 和 MOLAP 两类。</p>
+<ul>
+<li><p>ROLAP：即关系型 OLAP，通过对原始明细数据实时聚合计算的方式来进行数据查询。比如 Presto、ClickHouse 等 OLAP 引擎。</p>
+</li>
+<li><p>MOLAP： 即多维型 OLAP，通过摄入数据时对原始明细数据进行预聚合加工处理，然后通过预聚合数据来进行数据查询。比如 Kylin、Druid 等 OLAP 引擎。</p>
+<span id="more"></span>    </li>
+</ul>
+<p>接下来，针对这两类不同的 OLAP 场景，我们再从技术、性能、原理和应用场景这几个标准展开进行细致的选型分析。</p>
+<h3 id="关系型-OLAP-如何选型？"><a href="#关系型-OLAP-如何选型？" class="headerlink" title="关系型 OLAP 如何选型？"></a><strong>关系型 OLAP 如何选型？</strong></h3><p>首先，我们通过 Presto 和 ClickHouse 来看看关系型 OLAP 怎么选型。</p>
+<h4 id="Presto"><a href="#Presto" class="headerlink" title="Presto"></a><strong>Presto</strong></h4><p>Presto 是由 Facebook 开发的开源大数据分布式高性能 SQL 查询引擎，和 Hive 还有一定的关系。Facebook 最开始是使用 Hive 来进行交互式查询分析的，但 Hive 是基于 MapReduce 为批处理设计的。在交互式查询场景，MapReduce 的延时很高，满足不了用户想要快速出结果的需求。为了解决这个问题，Presto 就被开发出来了。它通过 Pipeline、全内存计算、动态代码生成等技术，来实现交互式分析查询，提供了分钟级乃至秒级低延时的查询性能。Presto 最大的特点就是，它能够直接查询 Hive/HDFS 上的数据，并快速分析，SQL 支持的特性也相对完善，以便数据分析师快速查询数据湖 / 数据仓库内的数据。以下是 Presto 的查询原理：</p>
+<img src="/2021/12/12/olap001%E2%80%94%E2%80%94olap%E5%BC%95%E6%93%8E%E9%80%89%E5%9E%8B%E5%AF%B9%E6%AF%94/1.png" alt="1">
+
+<p>​        需要注意的是，Presto 通常是从原始明细数据进行查询，所以它的性能比 Hive 和 Spark 更好。但它是全内存的设计（虽然也有相应的 Spill to Disk 机制，但是目前业界使用的较少），在查询大数据量的时候，可能会因为内存不够导致查询异常。这种情况下，我们可以增加硬件资源，或者可以选择 Spark Thrift Server 来进行这类大查询的分析。目前，主要用 Presto 分析离线数据，也可以分析近实时的数据，但技术尚不成熟。</p>
+<h4 id="ClickHouse"><a href="#ClickHouse" class="headerlink" title="ClickHouse"></a><strong>ClickHouse</strong></h4><p>​        和 Presto 一样，ClickHouse 也是一款实时 / 离线 OLAP 引擎，由号称 “俄罗斯 Google” 的 Yandex 开发而来。它的性能非常出色，从官方 Benchmark 来看，特别是单表查询，比 Presto、Impala 等关系型 OLAP 引擎都要快。这是因为，ClickHouse 主要使用了列式存储、向量化引擎、代码编译生成等技术去实现的。使用类似技术的产品有很多比如 Presto，但 ClickHouse 为什么那么快呢？这是因为 <strong>ClickHouse 还采用了自下而上的设计，极度关注底层实现性能</strong>，使用 C++ Native 语言开发，经过了各种数据结构和算法优化、代码级优化等。我们来看看 ClickHouse 的组件原理：</p>
+<img src="/2021/12/12/olap001%E2%80%94%E2%80%94olap%E5%BC%95%E6%93%8E%E9%80%89%E5%9E%8B%E5%AF%B9%E6%AF%94/2.webp" alt="2" style="zoom:80%;">
+
+<p>我来解释图中的 3 个核心组件吧。</p>
+<ul>
+<li>Shard 表示数据库分片，可以将一张海量的表进行切分存储。</li>
+<li>Replica 表示数据库副本，依赖 ZooKeeper 进行协调复制做到高可用。</li>
+<li>Distributed Tables 它代表分布式表。ClickHouse 通过逻辑映射将查询任务转发给不同分片的本地表，最后 Merge 查询结果。</li>
+</ul>
+<p>你或许要问了，这 3 个核心组件怎么体现出 ClickHouse 单表查询性能的出色呢？首先是<strong>储存上，ClickHouse 的存储采用了 Merge Tree</strong>。Merge Tree 的核心思想是，数据按照主键排序，每次写入都会根据数据分区形成一个个的 Parts 文件，服务器后台会不断合并 Parts 来减少读放大。当 MergeTree Merge 的速度低于插入形成 Parts 的速度，会出现 Too Many Parts 等类似错误。因此，官方要求一定要使用批量写入机制。这里你需要注意的是，ClickHouse 的主键与 MySQL 等数据库不同，主键不是唯一的，主键索引更加稀疏。ClickHouse 将每列数据按照 index granularity（默认 8192 行）进行划分，这样做，条目相对稠密索引较少，能够将其加载到内存，而且对插入时建立索引的成本相对较小。</p>
+<p>那么，查找的时候 ClickHouse 是如何通过索引来快速进行数据过滤呢？这就涉及到 <strong>ClickHouse 为每一列建立的 mrk 标记文件，mrk 文件与主键索引对齐，用于记录数据在数据文件中的偏移量信息</strong>。我们通过 ClickHouse 查询时，首先对主键索引进行二分查找，定位到对应的 mrk 标记文件，进而在 mrk 文件里搜索找到对应数据文件的偏移量，最终扫描得到相应的数据。避免了全表扫描，从而加速了查询。</p>
+<h3 id="多维型-OLAP-如何选型？"><a href="#多维型-OLAP-如何选型？" class="headerlink" title="多维型 OLAP 如何选型？"></a><strong>多维型 OLAP 如何选型？</strong></h3><p>讲完对关系型 OLAP 的选型分析，下面让我们借着 Kylin 和 Druid 来看看多维性 OLAP 怎么选型。</p>
+<h4 id="Kylin"><a href="#Kylin" class="headerlink" title="Kylin"></a><strong>Kylin</strong></h4><p>Kylin 是一款最具代表性的多维型 OLAP 引擎，它支持 Kafka、Hive、RDBMS 的数据源，一直以强大的分析能力和丰富的周边生态备受欢迎。Kylin 支持通过离线 / 实时预计算的方式，将原始明细数据的各种维度组合进行预聚合处理保存，最终将完全命中 Cube 的聚合查询转换为简单的 select 操作。底层存储配合 HBase 的高吞吐和低延时，能达到毫秒级的查询性能。此外，Cube 还可以减少不必要的预算，不过，Cube 创建后无法修改，需要在灵活性和计算成本之间取舍。我们通过下面的示意图，学习下 Kylin 的组件原理：</p>
+<img src="/2021/12/12/olap001%E2%80%94%E2%80%94olap%E5%BC%95%E6%93%8E%E9%80%89%E5%9E%8B%E5%AF%B9%E6%AF%94/3.webp" alt="3" style="zoom:50%;">
+
+<p><strong>左侧蓝色部分代表数据源</strong>：Kylin 支持 Kafka、Hive、RDBMS 的数据源，生态较为丰富。</p>
+<p><strong>右侧粉色部分表示 Cube 存储</strong>：截止目前 Kylin 4.0 版本，Kylin 支持 HBase 存储和 Parquet 存储。</p>
+<p><strong>我们继续看中间的黄色部分。</strong></p>
+<p><strong>Query Engine</strong>：在 Kylin 3.x 中，QueryEngine 可以说是由 HBase Coprocessor、Calcite 组成以满足低 RT 的存储；在 Kylin 4.x 中，QueryEngine 完全交由 Spark 实现。</p>
+<p><strong>BuildEngine</strong>：目前 Kylin 的构建引擎支持 Spark 和 MapReduce 两种计算框架，其中 Spark 在 Cuboid 构建的过程中避免了层与层之间的落盘，效率更加高效。</p>
+<p><strong>MetaData</strong>：MetaData 主要保存了 Cube 元信息、构建信息，支持 HBase 和 MySQL。</p>
+<p><strong>Routing</strong>：在 Cuboid 没有命中的情况下，Kylin 支持查询 Fall back 到原始数据，当然 RT 比直接命中 cuboid 会更高一些。</p>
+<h4 id="Druid"><a href="#Druid" class="headerlink" title="Druid"></a><strong>Druid</strong></h4><p>我们再看看同为实时 / 离线 OLAP 引擎的 Druid 。它是通过位图索引、字典编码、预聚合计算等技术实现的。Druid 的预聚合计算技术，是对最细粒度维度组合进行了预聚合计算，所以查询时，会基于这份预聚合数据再进行实时聚合计算。这种方式比起完全从原始明细数据查询，虽然降低了灵活度，却提高了查询性能；而且，因为不是预聚合所有可能的维度组合，也改善了维度爆炸的问题。以下是 Druid 的组件原理图：</p>
+<img src="/2021/12/12/olap001%E2%80%94%E2%80%94olap%E5%BC%95%E6%93%8E%E9%80%89%E5%9E%8B%E5%AF%B9%E6%AF%94/4.webp" alt="4">
+
+<p><strong>Master</strong>: 运行 Coordinator 和 Overlord 节点，负责管理数据的可用，均衡和摄入分配。</p>
+<p><strong>Query</strong>: 运行 Broker 和 Router 节点，负责数据的查询。</p>
+<p><strong>Data</strong>: 运行 Historical 和 MiddleManager 节点，执行实时和离线的数据存储和导入。</p>
+<p>需要注意的是，Druid 对实时 / 离线数据的分析，是把 Kafka 的实时数据和 HDFS 的 离线数据通过摄入修正补偿的方式，形成一个典型的 Lambda 架构。实时数据摄入方面，可以使用 Kafka Index Service 来保证不丢不重（Exactly Once）的递交语义。虽然如此，但是目前 Druid 查询时会使用 TopN 以及 HLL 非精确去重等方式。因此，Druid 还是比较适合对分析数据精度要求不那么高的场景。当然，业界也有一些尝试，比如 Druid 使用 Bitmap 的技术去做精确去重。不过当维度多、基数大的情况下，预聚合能力就不再有那么好的效果，实时聚合的效率也不那么高。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><p>汇总了这四款 OLAP 引擎的其它特性，参考：</p>
+<p><img src="/2021/12/12/olap001%E2%80%94%E2%80%94olap%E5%BC%95%E6%93%8E%E9%80%89%E5%9E%8B%E5%AF%B9%E6%AF%94/5.webp" alt="5"></p>
+<p>可以得出结论：</p>
+<ul>
+<li><strong>Presto 定位在交互式查询、数据湖 / 数据仓库快速分析、BI 灵活报表等场景</strong>。但是就目前来说，Presto 是从原始明细数据进行查询，性能一般，也无法用于实时场景。</li>
+<li><strong>ClickHouse 定位在拥有一定灵活度、维度较多、聚合度不高的分析类场景</strong>，比如用户行为分析、日志分析等场景。</li>
+<li><strong>Kylin 定位在离线分析类场景，特别是对数据量非常大、查询性能要求非常高的场景</strong>。</li>
+<li><strong>Druid 定位在实时分析类场景</strong>，但由于其 SQL 支持程度相对较低、无法精确查询等问题，<strong>一般用在日志、监控分析等场景</strong>。</li>
+</ul>
+<p>目前大数据领域 OLAP 引擎很多，但后期随着社区和生态的不断发展壮大，引擎功能应该会不断地完善、补齐、优化，最终朝着一站式 OLAP 引擎的方向发展，甚至是多模数据库引擎的方向去发展。</p>
+<blockquote>
+<p>参考文章：</p>
+<p><a target="_blank" rel="noopener" href="https://time.geekbang.org/dailylesson/detail/100075735">https://time.geekbang.org/dailylesson/detail/100075735</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/" rel="tag"><i class="fa fa-tag"></i> 大数据</a>
+              <a href="/tags/clickhouse/" rel="tag"><i class="fa fa-tag"></i> clickhouse</a>
+              <a href="/tags/Olap/" rel="tag"><i class="fa fa-tag"></i> Olap</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/12/spark002%E2%80%94%E2%80%94RDD%E7%AE%97%E5%AD%90%E5%85%A5%E9%97%A8/" rel="prev" title="spark002——RDD算子入门">
+      <i class="fa fa-chevron-left"></i> spark002——RDD算子入门
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/12/olap002%E2%80%94%E2%80%94superset%E6%A6%82%E8%BF%B0/" rel="next" title="Olap002——superset概述">
+      Olap002——superset概述 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E5%9E%8B-OLAP-%E5%A6%82%E4%BD%95%E9%80%89%E5%9E%8B%EF%BC%9F"><span class="nav-text">关系型 OLAP 如何选型？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Presto"><span class="nav-text">Presto</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ClickHouse"><span class="nav-text">ClickHouse</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%BB%B4%E5%9E%8B-OLAP-%E5%A6%82%E4%BD%95%E9%80%89%E5%9E%8B%EF%BC%9F"><span class="nav-text">多维型 OLAP 如何选型？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Kylin"><span class="nav-text">Kylin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Druid"><span class="nav-text">Druid</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">MMXX</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yourname@gmail.com" title="E-Mail → mailto:yourname@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/yourname" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class=""></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">MMXX</span>
+</div>
+  <div class="powered-by">尚未经历的世界在门外闪光
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
