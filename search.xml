@@ -119,17 +119,6 @@
       </categories>
   </entry>
   <entry>
-    <title>Olap003——hue概述</title>
-    <url>/2021/12/12/olap003%E2%80%94%E2%80%94hue%E6%A6%82%E8%BF%B0/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>OLAP</category>
-      </categories>
-      <tags>
-        <tag>hue</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Presto概述</title>
     <url>/2021/12/12/presto001%E2%80%94%E2%80%94%E6%A6%82%E8%BF%B0/</url>
     <content><![CDATA[]]></content>
@@ -138,6 +127,17 @@
       </categories>
       <tags>
         <tag>presto</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Olap003——hue概述</title>
+    <url>/2021/12/12/olap003%E2%80%94%E2%80%94hue%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>OLAP</category>
+      </categories>
+      <tags>
+        <tag>hue</tag>
       </tags>
   </entry>
   <entry>
@@ -255,16 +255,16 @@
       </categories>
   </entry>
   <entry>
-    <title>数仓003——元数据</title>
-    <url>/2021/12/12/%E6%95%B0%E4%BB%93003%E2%80%94%E2%80%94%E5%85%83%E6%95%B0%E6%8D%AE/</url>
+    <title>数仓004——数据质量</title>
+    <url>/2021/12/12/%E6%95%B0%E4%BB%93004%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F/</url>
     <content><![CDATA[]]></content>
       <categories>
         <category>数仓</category>
       </categories>
   </entry>
   <entry>
-    <title>数仓004——数据质量</title>
-    <url>/2021/12/12/%E6%95%B0%E4%BB%93004%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E8%B4%A8%E9%87%8F/</url>
+    <title>数仓003——元数据</title>
+    <url>/2021/12/12/%E6%95%B0%E4%BB%93003%E2%80%94%E2%80%94%E5%85%83%E6%95%B0%E6%8D%AE/</url>
     <content><![CDATA[]]></content>
       <categories>
         <category>数仓</category>

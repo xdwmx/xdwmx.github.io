@@ -232,6 +232,13 @@
             </span>
 
           
+            <span id="/2021/11/29/%E5%8D%8A%E5%B0%8F%E6%97%B6%E6%BC%AB%E7%94%BB%E4%B8%89%E5%9B%BD%E6%BC%94%E4%B9%89/" class="post-meta-item leancloud_visitors" data-flag-title="半小时漫画三国演义" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
   
   <span class="post-meta-item">
     
@@ -470,18 +477,18 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
     });
     new Valine({
       el         : '#valine-comments',
-      verify     : false,
-      notify     : false,
+      verify     : true,
+      notify     : true,
       appId      : '421bKknacKWzdHmPu2UEztEW-gzGzoHsz',
       appKey     : 'IPBCvkQgIfjfguaPEKhAI77U',
-      placeholder: "Just go go",
-      avatar     : 'mm',
+      placeholder: "评论区",
+      avatar     : 'robohash',
       meta       : guest,
       pageSize   : '10' || 10,
-      visitor    : false,
+      visitor    : true,
       lang       : '' || 'zh-cn',
       path       : location.pathname,
-      recordIP   : false,
+      recordIP   : true,
       serverURLs : ''
     });
   }, window.Valine);

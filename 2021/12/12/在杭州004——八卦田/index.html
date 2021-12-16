@@ -229,6 +229,13 @@
             </span>
 
           
+            <span id="/2021/12/12/%E5%9C%A8%E6%9D%AD%E5%B7%9E004%E2%80%94%E2%80%94%E5%85%AB%E5%8D%A6%E7%94%B0/" class="post-meta-item leancloud_visitors" data-flag-title="在杭州004——八卦田" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
   
   <span class="post-meta-item">
     
@@ -481,18 +488,18 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
     });
     new Valine({
       el         : '#valine-comments',
-      verify     : false,
-      notify     : false,
+      verify     : true,
+      notify     : true,
       appId      : '421bKknacKWzdHmPu2UEztEW-gzGzoHsz',
       appKey     : 'IPBCvkQgIfjfguaPEKhAI77U',
-      placeholder: "Just go go",
-      avatar     : 'mm',
+      placeholder: "评论区",
+      avatar     : 'robohash',
       meta       : guest,
       pageSize   : '10' || 10,
-      visitor    : false,
+      visitor    : true,
       lang       : '' || 'zh-cn',
       path       : location.pathname,
-      recordIP   : false,
+      recordIP   : true,
       serverURLs : ''
     });
   }, window.Valine);

@@ -424,18 +424,18 @@ NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
     });
     new Valine({
       el         : '#valine-comments',
-      verify     : false,
-      notify     : false,
+      verify     : true,
+      notify     : true,
       appId      : '421bKknacKWzdHmPu2UEztEW-gzGzoHsz',
       appKey     : 'IPBCvkQgIfjfguaPEKhAI77U',
-      placeholder: "Just go go",
-      avatar     : 'mm',
+      placeholder: "评论区",
+      avatar     : 'robohash',
       meta       : guest,
       pageSize   : '10' || 10,
-      visitor    : false,
+      visitor    : true,
       lang       : '' || 'zh-cn',
       path       : location.pathname,
-      recordIP   : false,
+      recordIP   : true,
       serverURLs : ''
     });
   }, window.Valine);
